@@ -28,7 +28,7 @@ jobs:
           docker compose down
 
           # Run the installation script with or without reporting issues to Sentry
-          install.sh --skip-user-creation --report-self-hosted-issues
+          ./install.sh --skip-user-creation --report-self-hosted-issues
 
           # Bring the Sentry services back up
           docker compose up -d
