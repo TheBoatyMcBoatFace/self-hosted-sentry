@@ -35,3 +35,4 @@ jobs:
         env:
           # Specify the Sentry Docker image to use. Make sure to use a stable version for production.
           SENTRY_IMAGE: getsentry/sentry:nightly
+
