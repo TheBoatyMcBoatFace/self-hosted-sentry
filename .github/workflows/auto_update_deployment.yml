@@ -1,0 +1,43 @@
+name: Auto-Update Sentry Deployment
+
+on:
+  push:
+    branches:
+      - main # Trigger the workflow when a push to the main branch occurs.
+
+jobs:
+  deploy:
+    runs-on: self-hosted # This job will run on the self-hosted runner
+    steps:
+      - name: Checkout the repository
+        uses: actions/checkout@v4
+        with:
+          path: 'self-hosted-sentry' # Clone the repository to this folder
+
+      - name: Update Sentry Deployment
+        run: |
+          # Determine if we need sudo for the deployment commands
+          SUDO="sudo"
+          if [ "$(whoami)" = "root" ]; then
+            SUDO=""
+          fi
+
+          # cd into the repo directory where the Sentry configuration is located
+          cd self-hosted-sentry
+
+          # Ensure we are on the main branch and pull the latest changes
+          git fetch
+          git checkout main
+          git pull
+
+          # Run the installation script with or without reporting issues to Sentry
+          $SUDO ./install.sh --skip-user-creation --report-self-hosted-issues
+
+          # Bring the Sentry services down before updating
+          $SUDO docker-compose down
+
+          # Bring the Sentry services back up
+          $SUDO docker-compose up -d
+        env:
+          # Specify the Sentry Docker image to use. Make sure to use a stable version for production.
+          SENTRY_IMAGE: getsentry/sentry:nightly

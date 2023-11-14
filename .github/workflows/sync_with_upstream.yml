@@ -1,0 +1,30 @@
+name: Sync Fork
+
+on:
+  schedule:
+    # Run this workflow automatically every day. You can adjust the cron schedule as needed.
+    - cron: '0 0 * * *'
+  workflow_dispatch:
+    # This allows you to manually trigger the workflow from the GitHub Actions tab.
+
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout the repository
+        uses: actions/checkout@v2
+        with:
+          fetch-depth: 0  # Fetch all history for all branches and tags
+
+      - name: Configure git
+        run: |
+          git config user.name 'GitHub Actions'
+          git config user.email 'actions@github.com'
+
+      - name: Sync fork with upstream
+        run: |
+          git remote add upstream https://github.com/getsentry/onpremise.git
+          git fetch upstream
+          git checkout master
+          git merge upstream/master
+          git push
