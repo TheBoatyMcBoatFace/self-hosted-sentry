@@ -16,12 +16,6 @@ jobs:
 
       - name: Update Sentry Deployment
         run: |
-          # Determine if we need sudo for the deployment commands
-          SUDO="sudo"
-          if [ "$(whoami)" = "root" ]; then
-            SUDO=""
-          fi
-
           # cd into the repo directory where the Sentry configuration is located
           cd self-hosted-sentry
 
@@ -31,13 +25,13 @@ jobs:
           git pull
 
           # Run the installation script with or without reporting issues to Sentry
-          $SUDO ./install.sh --skip-user-creation --report-self-hosted-issues
+          $./install.sh --skip-user-creation --report-self-hosted-issues
 
           # Bring the Sentry services down before updating
-          $SUDO docker-compose down
+          $docker-compose down
 
           # Bring the Sentry services back up
-          $SUDO docker-compose up -d
+          $docker-compose up -d
         env:
           # Specify the Sentry Docker image to use. Make sure to use a stable version for production.
           SENTRY_IMAGE: getsentry/sentry:nightly
