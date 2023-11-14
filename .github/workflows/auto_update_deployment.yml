@@ -31,8 +31,9 @@ jobs:
           ./install.sh --skip-user-creation --report-self-hosted-issues
 
           # Bring the Sentry services back up
-          # docker compose up -d
+          docker compose up -d
         env:
           # Specify the Sentry Docker image to use. Make sure to use a stable version for production.
           SENTRY_IMAGE: getsentry/sentry:nightly
+          OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
 

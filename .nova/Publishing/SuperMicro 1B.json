@@ -1,5 +1,10 @@
 {
   "identifier" : "D0DF6359-F415-48AC-9078-12EF0F935E0D",
+  "ignoredFilePatterns" : [
+    ".github",
+    ".gitignore",
+    "configs"
+  ],
   "localPath" : ".",
   "remotePath" : "\/home\/god\/self-hosted-sentry",
   "server" : "SuperMicro 1B",
