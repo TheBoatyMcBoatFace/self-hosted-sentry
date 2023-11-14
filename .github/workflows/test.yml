@@ -8,8 +8,8 @@ on:
       - "master"
       - "release/**"
   pull_request:
-  schedule:
-    - cron: "0 0,12 * * *"
+ # schedule:
+   # - cron: "0 0,12 * * *"
 defaults:
   run:
     shell: bash

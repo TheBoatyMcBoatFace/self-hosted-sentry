@@ -1,7 +1,7 @@
 name: 'Lock closed issues/PRs'
 on:
-  schedule:
-    - cron: '11 3 * * *'
+  #schedule:
+  #  - cron: '11 3 * * *'
   workflow_dispatch:
 jobs:
   lock:
