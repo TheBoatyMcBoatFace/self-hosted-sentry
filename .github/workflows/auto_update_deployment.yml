@@ -25,7 +25,7 @@ jobs:
           git pull
 
           # Run the installation script with or without reporting issues to Sentry
-          $./install.sh --skip-user-creation --report-self-hosted-issues
+          $install.sh --skip-user-creation --report-self-hosted-issues
 
           # Bring the Sentry services down before updating
           $docker-compose down
